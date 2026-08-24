@@ -64,5 +64,19 @@ data class FocusSession private constructor(
                 earnedExperiencePoints = 0,
             )
         }
+
+        internal fun restore(
+            plannedDurationMinutes: Int,
+            remainingDurationMinutes: Int,
+            pauseCount: Int,
+            status: FocusSessionStatus,
+            earnedExperiencePoints: Int,
+        ): FocusSession = FocusSession(
+            plannedDurationMinutes = plannedDurationMinutes,
+            remainingDurationMinutes = remainingDurationMinutes,
+            pauseCount = pauseCount,
+            status = status,
+            earnedExperiencePoints = earnedExperiencePoints,
+        )
     }
 }

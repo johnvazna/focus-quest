@@ -1,0 +1,61 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "1b5e0b6a2f8c17a2da7179203e60d8bd",
+    "entities": [
+      {
+        "tableName": "active_focus_session",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`slotId` INTEGER NOT NULL, `plannedDurationMinutes` INTEGER NOT NULL, `remainingDurationMinutes` INTEGER NOT NULL, `pauseCount` INTEGER NOT NULL, `status` TEXT NOT NULL, `earnedExperiencePoints` INTEGER NOT NULL, PRIMARY KEY(`slotId`))",
+        "fields": [
+          {
+            "fieldPath": "slotId",
+            "columnName": "slotId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plannedDurationMinutes",
+            "columnName": "plannedDurationMinutes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remainingDurationMinutes",
+            "columnName": "remainingDurationMinutes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pauseCount",
+            "columnName": "pauseCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "earnedExperiencePoints",
+            "columnName": "earnedExperiencePoints",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "slotId"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1b5e0b6a2f8c17a2da7179203e60d8bd')"
+    ]
+  }
+}
