@@ -1,4 +1,4 @@
-package com.example.dfm_agents.ui.theme
+package com.johnvazna.focusquest.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

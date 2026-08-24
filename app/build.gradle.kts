@@ -4,15 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dfm_agents"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    namespace = "com.johnvazna.focusquest"
+    compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.example.dfm_agents"
+        applicationId = "com.johnvazna.focusquest"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

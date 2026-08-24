@@ -1,8 +1,8 @@
-# dfm-agent — AGENT.md
+# FocusQuest — AGENTS.md
 
 ## Purpose
 
-This file defines the architectural, engineering, and code-generation rules that every AI coding agent must follow when working on the **dfm-agent** repository.
+This file defines the architectural, engineering, and code-generation rules that every AI coding agent must follow when working on the **FocusQuest** repository.
 
 These rules are model-agnostic and apply regardless of:
 
@@ -34,7 +34,7 @@ Architectural boundaries defined with MUST or MUST NOT take precedence over impl
 
 # 2. Project Principles
 
-The **dfm-agent** project is designed for long-term scalability and maintainability.
+The **FocusQuest** project is designed for long-term scalability and maintainability.
 
 The architecture MUST follow:
 
@@ -206,7 +206,7 @@ UI models SHOULD remain presentation-specific.
 
 # 8. Feature-First Modularization
 
-The **dfm-agent** project follows feature-first modularization.
+The **FocusQuest** project follows feature-first modularization.
 
 Code belongs to a feature by default.
 
@@ -283,7 +283,7 @@ The agent MUST NOT move code into `core` merely because it may be reused in the 
 The expected high-level structure is:
 
 ```text
-dfm-agent/
+focus-quest/
 │
 ├── app/
 ├── build-logic/
@@ -1592,7 +1592,7 @@ The agent MUST NOT use an exception to bypass a boundary when an architecture-sa
 
 # 55. Final Principle
 
-The architecture of **dfm-agent** must remain understandable as the project grows.
+The architecture of **FocusQuest** must remain understandable as the project grows.
 
 Every new abstraction, dependency, module, and shared component must justify its existence.
 
