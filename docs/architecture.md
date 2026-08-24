@@ -27,6 +27,12 @@ The following infrastructure will be introduced only with its first concrete con
 
 Generic `BaseViewModel`, `BaseRepository`, and `BaseUseCase` abstractions are not allowed. Shared behavior will use focused contracts and composition after repeated concrete needs are demonstrated.
 
+## Module conventions
+
+Android application and library modules use the convention plugins exposed by `build-logic`. Compose remains opt-in for library modules so Domain and Data code are not coupled to UI tooling.
+
+New Gradle modules require an explicit owner, architectural boundary, and dependency direction before being added to the project.
+
 ## Quality gates
 
 Every pull request into `develop` must compile the debug application and pass unit tests and Android lint. Feature changes must add the smallest relevant tests for their business and presentation behavior.
