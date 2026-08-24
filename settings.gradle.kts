@@ -26,3 +26,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "FocusQuest"
 include(":app")
+include(":core:designsystem")

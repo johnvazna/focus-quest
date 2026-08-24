@@ -6,6 +6,7 @@ FocusQuest starts with the smallest architecture that supports the next product 
 
 - `app` is the composition root and owns application startup and root UI composition.
 - `build-logic` owns shared Gradle conventions that are already used by a real module.
+- `core:designsystem` owns the application theme and stable visual foundations.
 - Feature behavior does not belong in `app`.
 - Dependencies follow `Presentation -> Domain <- Data` inside each feature.
 
@@ -36,3 +37,5 @@ New Gradle modules require an explicit owner, architectural boundary, and depend
 ## Quality gates
 
 Every pull request into `develop` must compile the debug application and pass unit tests and Android lint. Feature changes must add the smallest relevant tests for their business and presentation behavior.
+
+Dependency updates follow the manual evaluation process defined in `docs/dependency-updates.md`. Routine automated dependency pull requests are disabled.
