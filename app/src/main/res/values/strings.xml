@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FocusQuest</string>
+    <string name="focus_session_already_active">A focus session is already active.</string>
+    <string name="focus_session_invalid_duration">Choose a valid session duration.</string>
 </resources>
