@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.johnvazna.focusquest.R
-import com.johnvazna.focusquest.ui.theme.FocusQuestTheme
+import com.johnvazna.focusquest.core.designsystem.theme.FocusQuestTheme
 
 @Composable
 fun FocusQuestApp() {
