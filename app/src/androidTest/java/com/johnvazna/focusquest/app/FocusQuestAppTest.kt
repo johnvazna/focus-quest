@@ -3,6 +3,13 @@ package com.johnvazna.focusquest.app
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.johnvazna.focusquest.feature.focussession.impl.domain.repository.FocusSessionRepository
+import com.johnvazna.focusquest.feature.focussession.impl.domain.usecase.StartFocusSession
+import com.johnvazna.focusquest.feature.focussession.impl.presentation.FocusSessionTicker
+import com.johnvazna.focusquest.feature.focussession.impl.presentation.FocusSessionViewModel
+import kotlinx.coroutines.flow.emptyFlow
 import org.junit.Rule
 import org.junit.Test
 
@@ -12,11 +19,20 @@ class FocusQuestAppTest {
     val composeRule = createComposeRule()
 
     @Test
-    fun displaysAppName() {
+    fun displaysFocusSessionDestination() {
         composeRule.setContent {
-            FocusQuestApp()
+            FocusQuestApp(focusSessionViewModelFactory = focusSessionViewModelFactory())
         }
 
-        composeRule.onNodeWithText("FocusQuest").assertIsDisplayed()
+        composeRule.onNodeWithText("Focus session").assertIsDisplayed()
+    }
+
+    private fun focusSessionViewModelFactory() = viewModelFactory {
+        initializer {
+            FocusSessionViewModel(
+                startFocusSession = StartFocusSession(FocusSessionRepository { true }),
+                ticker = FocusSessionTicker { emptyFlow() },
+            )
+        }
     }
 }
