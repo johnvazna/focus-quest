@@ -1,16 +1,13 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.compose)
+    id("focusquest.android.application")
 }
 
 android {
     namespace = "com.johnvazna.focusquest"
-    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.johnvazna.focusquest"
-        minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -23,13 +20,6 @@ android {
                 enable = false
             }
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
     }
 }
 
