@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "dfm-agents"
+rootProject.name = "FocusQuest"
 include(":app")

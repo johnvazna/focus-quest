@@ -1,4 +1,4 @@
-package com.example.dfm_agents
+package com.johnvazna.focusquest
 
 import org.junit.Test
 
