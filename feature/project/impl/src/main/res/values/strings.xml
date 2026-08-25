@@ -1,0 +1,6 @@
+<resources>
+    <string name="project_title">Project</string>
+    <string name="project_empty_headline">Nothing in motion yet</string>
+    <string name="project_empty_body">One project at a time. Give it an end date and the ring starts keeping count.</string>
+    <string name="project_create">Create a project</string>
+</resources>

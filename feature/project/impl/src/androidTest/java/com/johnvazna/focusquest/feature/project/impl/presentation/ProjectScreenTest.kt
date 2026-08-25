@@ -1,9 +1,9 @@
-package com.johnvazna.focusquest.feature.dashboard.impl.presentation
+package com.johnvazna.focusquest.feature.project.impl.presentation
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.johnvazna.focusquest.core.designsystem.theme.FocusQuestTheme
@@ -14,55 +14,39 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class DashboardScreenTest {
+class ProjectScreenTest {
     @get:Rule
     val composeRule = createComposeRule()
 
     @Test
-    fun withoutAProjectTheScreenExplainsWhatIsMissing() {
+    fun emptyProjectExplainsTheNextStep() {
         setContent()
 
-        composeRule.onNodeWithText("Dashboard").assertIsDisplayed()
+        composeRule.onNodeWithText("Project").assertIsDisplayed()
         composeRule.onNodeWithText("Nothing in motion yet").assertIsDisplayed()
-        composeRule
-            .onNodeWithText("One project at a time", substring = true)
-            .assertIsDisplayed()
-    }
-
-    @Test
-    fun theEmptyStateShowsNoMetric() {
-        setContent()
-
-        composeRule.onNodeWithText("0%").assertDoesNotExist()
-        composeRule.onNodeWithText("Week", substring = true).assertDoesNotExist()
-    }
-
-    @Test
-    fun theRestingFieldIsNotAnnouncedAsAProgressIndicator() {
-        setContent()
-
+        composeRule.onNodeWithText("Create a project").assertIsDisplayed()
         composeRule.onNodeWithTag(FOCUS_QUEST_PROGRESS_FIELD_TAG, useUnmergedTree = true)
             .assertExists()
     }
 
     @Test
-    fun theOnlyActionCreatesAProject() {
-        var created = false
+    fun createProjectActionIsForwarded() {
+        var createRequested = false
         composeRule.setContent {
             FocusQuestTheme {
-                DashboardScreen(onCreateProject = { created = true })
+                ProjectScreen(onCreateProject = { createRequested = true })
             }
         }
 
         composeRule.onNodeWithText("Create a project").performClick()
 
-        assertTrue(created)
+        assertTrue(createRequested)
     }
 
     private fun setContent() {
         composeRule.setContent {
             FocusQuestTheme {
-                DashboardScreen(onCreateProject = {})
+                ProjectScreen(onCreateProject = {})
             }
         }
     }

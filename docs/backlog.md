@@ -152,13 +152,13 @@ Until then, the smaller correction is to stop translating feature effects inside
 
 ### Problem
 
-`3a` offers exactly one action, "Create a project", and it is the whole point of the screen: without it the user cannot leave the empty state. The flow it should open does not exist, so `app` passes an empty callback and the button does nothing when pressed.
+`3a` offers exactly one action, "Create a project", and it is the whole point of the screen. The flow it should open does not exist. While the application is empty, the action can select Project without recreating the shared empty view, but it cannot start project creation.
 
 This is a dead control in a shipping surface. It is recorded at P1 rather than P0 only because no released build depends on it yet.
 
 ### Evidence
 
-- `FocusQuestNavHost` wires `DashboardRoute(onCreateProject = {})` with a TODO referring to this entry.
+- `FocusQuestNavHost` keeps one empty-project composition alive for Dashboard and Project, but its action has no creation destination to open.
 - The source design's own next step for this turn is "añade el flujo de crear proyecto (3 pasos)" — the flow is not designed yet either.
 
 ### Direction
