@@ -78,6 +78,21 @@ class FocusQuestAppTest {
             actionId,
             composeRule.onNodeWithText("Create a project").fetchSemanticsNode().id,
         )
+
+        composeRule.onNodeWithText("Timeline").performClick()
+
+        composeRule.onAllNodesWithText("Timeline").assertCountEquals(2)
+        assertEquals(
+            canvasId,
+            composeRule.onNodeWithTag(
+                FOCUS_QUEST_PROGRESS_FIELD_TAG,
+                useUnmergedTree = true,
+            ).fetchSemanticsNode().id,
+        )
+        assertEquals(
+            actionId,
+            composeRule.onNodeWithText("Create a project").fetchSemanticsNode().id,
+        )
     }
 
     private fun focusSessionViewModelFactory() = viewModelFactory {

@@ -70,7 +70,7 @@ fun FocusQuestNavHost(
             FocusQuestNavigationBar(
                 selectedRoute = selectedNavigationRoute,
                 onNavigate = { route ->
-                    if (route == DASHBOARD_ROUTE || route == PROJECT_ROUTE) {
+                    if (route in emptyProjectRoutes) {
                         selectedEmptyRoute = route
                         if (currentRoute != EMPTY_PROJECT_ROUTE) {
                             navController.navigate(EMPTY_PROJECT_ROUTE) {
@@ -102,10 +102,10 @@ fun FocusQuestNavHost(
             composable(EMPTY_PROJECT_ROUTE) {
                 ProjectRoute(
                     bannerTitle = stringResource(
-                        if (selectedEmptyRoute == DASHBOARD_ROUTE) {
-                            R.string.navigation_dashboard
-                        } else {
-                            R.string.navigation_project
+                        when (selectedEmptyRoute) {
+                            PROJECT_ROUTE -> R.string.navigation_project
+                            TIMELINE_ROUTE -> R.string.navigation_timeline
+                            else -> R.string.navigation_dashboard
                         },
                     ),
                     // TODO: Connect the project-creation flow when its product design exists.
@@ -252,12 +252,13 @@ private sealed interface NavigationItem {
 private val navigationItems = listOf(
     NavigationItem.Marked(R.string.navigation_project, R.drawable.ic_nav_project, PROJECT_ROUTE),
     NavigationItem.Field(R.string.navigation_dashboard, DASHBOARD_ROUTE),
-    NavigationItem.Marked(R.string.navigation_timeline, R.drawable.ic_nav_timeline, null),
+    NavigationItem.Marked(R.string.navigation_timeline, R.drawable.ic_nav_timeline, TIMELINE_ROUTE),
     NavigationItem.Marked(R.string.navigation_settings, R.drawable.ic_nav_settings, null),
 )
 
 private const val DASHBOARD_ROUTE = "dashboard"
 private const val PROJECT_ROUTE = "project"
+private const val TIMELINE_ROUTE = "timeline"
 private const val EMPTY_PROJECT_ROUTE = "empty-project"
 private const val FOCUS_SESSION_ROUTE = "focus-session"
 
@@ -268,3 +269,5 @@ private const val MARK_DOT_SPACING_DP = 4.2f
 private const val MARK_DOT_RADIUS_DP = 1.05f
 private const val MARK_SOLID_FRACTION = 0.55f
 private const val MARK_FADED_FRACTION = 0.78f
+
+private val emptyProjectRoutes = setOf(DASHBOARD_ROUTE, PROJECT_ROUTE, TIMELINE_ROUTE)
