@@ -20,6 +20,9 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -37,9 +40,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.johnvazna.focusquest.R
-import com.johnvazna.focusquest.feature.dashboard.impl.presentation.DashboardRoute
+import com.johnvazna.focusquest.core.designsystem.component.rememberFocusQuestProgressFieldState
 import com.johnvazna.focusquest.feature.focussession.impl.presentation.FocusSessionRoute
 import com.johnvazna.focusquest.feature.focussession.impl.presentation.FocusSessionUiEffect
+import com.johnvazna.focusquest.feature.project.impl.presentation.ProjectRoute
 
 @Composable
 fun FocusQuestNavHost(
@@ -51,20 +55,40 @@ fun FocusQuestNavHost(
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
+    val emptyProjectProgressFieldState = rememberFocusQuestProgressFieldState()
+    var selectedEmptyRoute by rememberSaveable { mutableStateOf(DASHBOARD_ROUTE) }
+    val selectedNavigationRoute = if (currentRoute == EMPTY_PROJECT_ROUTE) {
+        selectedEmptyRoute
+    } else {
+        currentRoute
+    }
 
     Scaffold(
         modifier = modifier,
         snackbarHost = { SnackbarHost(snackbarHostState) },
         bottomBar = {
             FocusQuestNavigationBar(
-                selectedRoute = currentRoute,
+                selectedRoute = selectedNavigationRoute,
                 onNavigate = { route ->
-                    navController.navigate(route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                    if (route == DASHBOARD_ROUTE || route == PROJECT_ROUTE) {
+                        selectedEmptyRoute = route
+                        if (currentRoute != EMPTY_PROJECT_ROUTE) {
+                            navController.navigate(EMPTY_PROJECT_ROUTE) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                         }
-                        launchSingleTop = true
-                        restoreState = true
+                    } else {
+                        navController.navigate(route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 },
             )
@@ -72,14 +96,21 @@ fun FocusQuestNavHost(
     ) { contentPadding ->
         NavHost(
             navController = navController,
-            startDestination = DASHBOARD_ROUTE,
+            startDestination = EMPTY_PROJECT_ROUTE,
             modifier = Modifier.padding(contentPadding),
         ) {
-            composable(DASHBOARD_ROUTE) {
-                DashboardRoute(
-                    // TODO: point at the project-creation flow once it exists. Tracked as P1-3
-                    //  in docs/backlog.md; the source design has not defined that flow yet.
-                    onCreateProject = {},
+            composable(EMPTY_PROJECT_ROUTE) {
+                ProjectRoute(
+                    bannerTitle = stringResource(
+                        if (selectedEmptyRoute == DASHBOARD_ROUTE) {
+                            R.string.navigation_dashboard
+                        } else {
+                            R.string.navigation_project
+                        },
+                    ),
+                    // TODO: Connect the project-creation flow when its product design exists.
+                    onCreateProject = { selectedEmptyRoute = PROJECT_ROUTE },
+                    progressFieldState = emptyProjectProgressFieldState,
                 )
             }
             composable(FOCUS_SESSION_ROUTE) {
@@ -219,13 +250,15 @@ private sealed interface NavigationItem {
 }
 
 private val navigationItems = listOf(
-    NavigationItem.Marked(R.string.navigation_project, R.drawable.ic_nav_project, FOCUS_SESSION_ROUTE),
+    NavigationItem.Marked(R.string.navigation_project, R.drawable.ic_nav_project, PROJECT_ROUTE),
     NavigationItem.Field(R.string.navigation_dashboard, DASHBOARD_ROUTE),
     NavigationItem.Marked(R.string.navigation_timeline, R.drawable.ic_nav_timeline, null),
     NavigationItem.Marked(R.string.navigation_settings, R.drawable.ic_nav_settings, null),
 )
 
 private const val DASHBOARD_ROUTE = "dashboard"
+private const val PROJECT_ROUTE = "project"
+private const val EMPTY_PROJECT_ROUTE = "empty-project"
 private const val FOCUS_SESSION_ROUTE = "focus-session"
 
 private const val ICON_RESTING_ALPHA = 0.22f

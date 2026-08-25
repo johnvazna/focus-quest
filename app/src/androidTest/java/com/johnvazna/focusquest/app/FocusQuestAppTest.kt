@@ -1,7 +1,10 @@
 package com.johnvazna.focusquest.app
 
+import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.lifecycle.viewmodel.initializer
@@ -10,7 +13,9 @@ import com.johnvazna.focusquest.feature.focussession.impl.domain.repository.Focu
 import com.johnvazna.focusquest.feature.focussession.impl.domain.usecase.StartFocusSession
 import com.johnvazna.focusquest.feature.focussession.impl.presentation.FocusSessionTicker
 import com.johnvazna.focusquest.feature.focussession.impl.presentation.FocusSessionViewModel
+import com.johnvazna.focusquest.core.designsystem.component.FOCUS_QUEST_PROGRESS_FIELD_TAG
 import kotlinx.coroutines.flow.emptyFlow
+import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 
@@ -29,14 +34,50 @@ class FocusQuestAppTest {
     }
 
     @Test
-    fun projectTabOpensFocusSession() {
+    fun projectTabOpensProjectEmptyState() {
         composeRule.setContent {
             FocusQuestApp(focusSessionViewModelFactory = focusSessionViewModelFactory())
         }
 
         composeRule.onNodeWithText("Project").performClick()
 
-        composeRule.onNodeWithText("Focus session").assertIsDisplayed()
+        composeRule.onAllNodesWithText("Project").assertCountEquals(2)
+    }
+
+    @Test
+    fun dashboardCreateActionOpensProjectEmptyState() {
+        composeRule.setContent {
+            FocusQuestApp(focusSessionViewModelFactory = focusSessionViewModelFactory())
+        }
+
+        composeRule.onNodeWithText("Create a project").performClick()
+
+        composeRule.onAllNodesWithText("Project").assertCountEquals(2)
+    }
+
+    @Test
+    fun switchingEmptyTabsKeepsCanvasAndActionComposed() {
+        composeRule.setContent {
+            FocusQuestApp(focusSessionViewModelFactory = focusSessionViewModelFactory())
+        }
+        val canvasId = composeRule
+            .onNodeWithTag(FOCUS_QUEST_PROGRESS_FIELD_TAG, useUnmergedTree = true)
+            .fetchSemanticsNode().id
+        val actionId = composeRule.onNodeWithText("Create a project").fetchSemanticsNode().id
+
+        composeRule.onNodeWithText("Project").performClick()
+
+        assertEquals(
+            canvasId,
+            composeRule.onNodeWithTag(
+                FOCUS_QUEST_PROGRESS_FIELD_TAG,
+                useUnmergedTree = true,
+            ).fetchSemanticsNode().id,
+        )
+        assertEquals(
+            actionId,
+            composeRule.onNodeWithText("Create a project").fetchSemanticsNode().id,
+        )
     }
 
     private fun focusSessionViewModelFactory() = viewModelFactory {
