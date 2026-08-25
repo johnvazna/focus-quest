@@ -179,7 +179,7 @@ private val durationOptions = listOf(15, 25, 45, 60)
 @Preview(showBackground = true)
 @Composable
 private fun FocusSessionIdlePreview() {
-    FocusQuestTheme(dynamicColor = false) {
+    FocusQuestTheme {
         FocusSessionScreen(
             state = FocusSessionUiState(),
             onEvent = {},
@@ -190,7 +190,7 @@ private fun FocusSessionIdlePreview() {
 @Preview(showBackground = true)
 @Composable
 private fun FocusSessionActivePreview() {
-    FocusQuestTheme(dynamicColor = false) {
+    FocusQuestTheme {
         FocusSessionScreen(
             state = FocusSessionUiState(
                 remainingMinutes = 18,

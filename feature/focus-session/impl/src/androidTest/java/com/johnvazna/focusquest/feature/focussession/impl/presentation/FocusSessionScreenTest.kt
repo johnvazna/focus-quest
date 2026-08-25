@@ -20,7 +20,7 @@ class FocusSessionScreenTest {
     fun idleStateShowsDurationOptionsAndEmitsStart() {
         var receivedEvent: FocusSessionUiEvent? = null
         composeRule.setContent {
-            FocusQuestTheme(dynamicColor = false) {
+            FocusQuestTheme {
                 FocusSessionScreen(
                     state = FocusSessionUiState(),
                     onEvent = { receivedEvent = it },
@@ -37,7 +37,7 @@ class FocusSessionScreenTest {
     @Test
     fun pausedStateShowsResumeAndRemainingTime() {
         composeRule.setContent {
-            FocusQuestTheme(dynamicColor = false) {
+            FocusQuestTheme {
                 FocusSessionScreen(
                     state = FocusSessionUiState(
                         remainingMinutes = 12,
@@ -57,7 +57,7 @@ class FocusSessionScreenTest {
     @Test
     fun completedStateShowsConfirmation() {
         composeRule.setContent {
-            FocusQuestTheme(dynamicColor = false) {
+            FocusQuestTheme {
                 FocusSessionScreen(
                     state = FocusSessionUiState(status = FocusSessionUiStatus.COMPLETED),
                     onEvent = {},
