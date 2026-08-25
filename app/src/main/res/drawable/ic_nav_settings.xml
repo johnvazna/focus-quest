@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Source design: 20x20 stroked mark, 1.4 stroke. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20" >
+    <path
+        android:pathData="M10,2.6l6.4,3.7v7.4L10,17.4l-6.4,-3.7V6.3z"
+        android:strokeColor="#161615"
+        android:strokeLineJoin="round"
+        android:strokeWidth="1.4" />
+    <path
+        android:pathData="M12.4,10a2.4,2.4 0 1,1 -4.8,0a2.4,2.4 0 1,1 4.8,0"
+        android:strokeColor="#161615"
+        android:strokeWidth="1.4" />
+</vector>

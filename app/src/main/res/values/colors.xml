@@ -1,0 +1,5 @@
+<resources>
+    <!-- Mirrors FocusQuestPaper in core:designsystem. Used for the window background so the
+         application does not flash a different colour before Compose draws. -->
+    <color name="focus_quest_paper">#FAF7F1</color>
+</resources>

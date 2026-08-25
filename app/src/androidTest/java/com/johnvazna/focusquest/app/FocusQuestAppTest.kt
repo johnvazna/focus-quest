@@ -3,6 +3,7 @@ package com.johnvazna.focusquest.app
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.johnvazna.focusquest.feature.focussession.impl.domain.repository.FocusSessionRepository
@@ -19,10 +20,21 @@ class FocusQuestAppTest {
     val composeRule = createComposeRule()
 
     @Test
-    fun displaysFocusSessionDestination() {
+    fun displaysDashboardAsInitialDestination() {
         composeRule.setContent {
             FocusQuestApp(focusSessionViewModelFactory = focusSessionViewModelFactory())
         }
+
+        composeRule.onNodeWithText("Nothing in motion yet").assertIsDisplayed()
+    }
+
+    @Test
+    fun projectTabOpensFocusSession() {
+        composeRule.setContent {
+            FocusQuestApp(focusSessionViewModelFactory = focusSessionViewModelFactory())
+        }
+
+        composeRule.onNodeWithText("Project").performClick()
 
         composeRule.onNodeWithText("Focus session").assertIsDisplayed()
     }

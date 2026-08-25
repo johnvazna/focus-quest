@@ -2,4 +2,8 @@
     <string name="app_name">FocusQuest</string>
     <string name="focus_session_already_active">A focus session is already active.</string>
     <string name="focus_session_invalid_duration">Choose a valid session duration.</string>
+    <string name="navigation_project">Project</string>
+    <string name="navigation_dashboard">Dashboard</string>
+    <string name="navigation_timeline">Timeline</string>
+    <string name="navigation_settings">Settings</string>
 </resources>
