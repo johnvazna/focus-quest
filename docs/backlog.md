@@ -128,7 +128,7 @@ The current cost is low because there are two destinations and one owner. The co
 
 - `FocusQuestNavHost` imports `DashboardRoute`, `FocusSessionRoute`, and `FocusSessionUiEffect` from `:impl` modules.
 - `FocusQuestApp` maps `FocusSessionUiEffect` values to application-level snackbar strings, so feature effect semantics are owned by `app`.
-- `settings.gradle.kts` includes only `:impl` modules for both features.
+- `settings.gradle.kts` includes only `:impl` modules for the current features.
 
 ### Direction
 
